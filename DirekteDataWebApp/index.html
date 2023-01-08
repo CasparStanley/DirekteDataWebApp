@@ -70,19 +70,25 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col"></th>
+                                <th></th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr>
                                 <th scope="row">{{dataSet.id}}</th>
                                 <td>{{dataSet.name}}</td>
                                 <td>{{dataSet.description}}</td>
                                 <td></td>
                             </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-hover rounded-less shadow-sm">
+                        <thead v-if="dataSet">
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Rotation</th>
-                                <th scope="col"></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <thead v-else>
