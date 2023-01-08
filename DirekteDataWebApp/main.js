@@ -4,7 +4,10 @@ Vue.createApp({
     data() {
         return {
             DirekteData: [],
-            dataStructure: {id: null, time: null, rotation: ""},
+            dataSet: {id: null, name: "", description: "", recordings: []},
+            dataStructure: {id: null, dataSetId: null, time: null, rotation: ""},
+            dataSetIdToGetBy: 0,
+            dataSetIdToRecordingGetBy: 0,
             idToGetBy: 0,
             dataToGet: 0,
             addData: {id: 0, time: 0, rotation: ""},
@@ -21,9 +24,20 @@ Vue.createApp({
                 alert(e.message);
             }
         },
-        async getData(id) {
+        async getDataSet(id) {
             try {
                 const url = RESTURL + "/" + id;
+                const response = await axios.get(url);
+                this.dataSet = await response.data;
+            }
+            catch (e) {
+                this.dataStructure = null;
+                // alert(e.message);
+            }
+        },
+        async getRecording(dataSetId, id) {
+            try {
+                const url = RESTURL + "/" + dataSetId + "/" + id;
                 const response = await axios.get(url);
                 this.dataStructure = await response.data;
             }

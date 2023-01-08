@@ -33,19 +33,17 @@
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
+                                <th scope="col">DataSet Id</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Rotation</th>
-                                <th scope="col">John</th>
                             </tr>
                         </thead>
                         <tbody v-if="DirekteData.length">
                             <tr v-for="data in DirekteData">
                                 <th scope="row">{{data.id}}</th>
+                                <td>{{data.dataSetId}}</td>
                                 <td>{{data.time}}</td>
                                 <td>{{data.rotation}}</td>
-                                <td class="d-flex justify-content-between">
-                                    <span class="dot dot-main my-auto"></span>
-                                </td>
                             </tr>
                         </tbody>
                       </table>
@@ -54,19 +52,78 @@
                 <hr class="style1">
 
                 <div class="col-12 col-xl-12 pb-5">
-                    <h4>Get Specific Data Set</h4>
+                    <h4>Get Data Set</h4>
                     <div class="d-flex my-2">
                         <div class="col-2">
-                            <label for="getDataId" class="my-2">Data Id</label>
-                            <input required id="getDataId" type="number" class="form-control" v-model.number="idToGetBy" />
+                            <label for="getDataId" class="my-2">DataSet Id</label>
+                            <input required id="getDataId" type="number" class="form-control" v-model.number="dataSetIdToGetBy" />
                         </div>
                         
                         <div class="mx-2 w-100 d-flex justify-content-start">
-                            <button v-on:click="getData(idToGetBy)" class="btn btn-success mt-auto"><b>Load</b></button>
+                            <button v-on:click="getDataSet(dataSetIdToGetBy)" class="btn btn-success mt-auto"><b>Load</b></button>
                         </div>
                     </div>
 
-                    <table class="table table-borderless rounded-less">
+                    <table class="table table-bordered table-hover rounded-less shadow-sm">
+                        <thead v-if="dataSet">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{dataSet.id}}</th>
+                                <td>{{dataSet.name}}</td>
+                                <td>{{dataSet.description}}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Rotation</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <thead v-else>
+                            <tr>
+                                <th scope="col"><span class="dot dot-error my-auto"></span> There is no DataSet with this id</th>
+                            </tr>
+                        </thead>
+                        <tbody v-if="dataSet.recordings.length">
+                            <tr v-for="data in dataSet.recordings">
+                                <th scope="row">{{data.id}}</th>
+                                <td>{{data.dataSetId}}</td>
+                                <td>{{data.time}}</td>
+                                <td>{{data.rotation}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody v-else>
+                            <tr>
+                                <td scope="row">No DataSet loaded yet...</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                </div>
+
+                <div class="col-12 col-xl-12 pb-5">
+                    <h4>Get Recording</h4>
+                    <div class="d-flex my-2">
+                        <div class="col-2">
+                            <label for="getDataSetId" class="my-2">DataSet Id</label>
+                            <input required id="getDataSetId" type="number" class="form-control" v-model.number="dataSetIdToRecordingGetBy" />
+                        </div>
+                        <div class="col-2 mx-2">
+                            <label for="getRecordingId" class="my-2">Recording Id</label>
+                            <input required id="getRecordingId" type="number" class="form-control" v-model.number="idToGetBy" />
+                        </div>
+                        
+                        <div class="w-100 d-flex justify-content-start">
+                            <button v-on:click="getRecording(dataSetIdToRecordingGetBy, idToGetBy)" class="btn btn-success mt-auto"><b>Load</b></button>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover rounded-less shadow-sm">
                         <thead v-if="dataStructure">
                             <tr>
                                 <th scope="col">Id</th>
@@ -76,7 +133,7 @@
                         </thead>
                         <thead v-else>
                             <tr>
-                                <th scope="col"><span class="dot dot-error my-auto"></span> No data for this id</th>
+                                <th scope="col"><span class="dot dot-error my-auto"></span> There is no Recording with this id</th>
                             </tr>
                         </thead>
                         <tbody v-if="dataStructure">
@@ -88,7 +145,7 @@
                         </tbody>
                         <tbody v-else>
                             <tr>
-                                <th scope="row"></th>
+                                <td scope="row">No Recording loaded yet...</td>
                             </tr>
                         </tbody>
                       </table>
