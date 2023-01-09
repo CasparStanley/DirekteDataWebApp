@@ -24,6 +24,17 @@ Vue.createApp({
                 alert(e.message);
             }
         },
+        async getLive() {
+            try {
+                const url = RESTURL + "/live";
+                const response = await axios.get(url);
+                this.dataSet = await response.data;
+            }
+            catch (e) {
+                this.dataStructure = null;
+                // alert(e.message);
+            }
+        },
         async getDataSet(id) {
             try {
                 const url = RESTURL + "/" + id;

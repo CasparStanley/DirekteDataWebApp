@@ -126,3 +126,7 @@ table.table-bordered > thead {
     background-color: var(--stanley-creative-color-dark);
     border-color: var(--stanley-creative-color-dark);
 }
+
+.table-responsive {
+    max-height:300px;
+}
